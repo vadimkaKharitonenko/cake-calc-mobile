@@ -15,13 +15,6 @@ class Consumables extends Component {
     header: null
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    };
-  }
-
   render() {
     this.consumables = this.props.currentRecipeConsumablesStore.map(( item, index ) => {
       return <Product key={index} info={item} />

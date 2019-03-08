@@ -31,7 +31,7 @@ const RootStack = createStackNavigator({
   Ingredients: Ingredients,
   Results: Results,
   Consumables: Consumables,
-  ConsumablesList: ConsumablesList
+  ConsumablesList: ConsumablesList,
 })
 
 const AppStackNavigator = createAppContainer(RootStack);

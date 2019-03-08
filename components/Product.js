@@ -152,7 +152,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-      appActions: bindActionCreators(appActions, dispatch)
+    appActions: bindActionCreators(appActions, dispatch)
   }
 }
 

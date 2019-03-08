@@ -7,10 +7,8 @@ import menuIcon from '../static/menu.png';
 import someIcon from '../static/some.png';
 
 export default class Menu extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
+  static navigationOptions = {
+    header: null
   }
 
   render() {

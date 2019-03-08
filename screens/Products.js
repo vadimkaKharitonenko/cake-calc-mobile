@@ -13,13 +13,6 @@ class Products extends Component {
     header: null
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      
-    };
-  }
-
   render() {
     this.products = this.props.currentRecipeProductsStore.map(( item, index ) => {
       return <Product key={index} info={item} />
@@ -41,7 +34,7 @@ class Products extends Component {
             </TouchableHighlight>
           </View>
         </ScrollView>
-        <Menu />
+        <Menu nav={this.props.navigation} />
       </View>
     );
   }

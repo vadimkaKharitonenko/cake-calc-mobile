@@ -3,7 +3,11 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import Menu from '../components/Menu';
 
-export default class Results extends Component {
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as appActions from '../actions/index';
+
+class Results extends Component {
   static navigationOptions = {
     header: null
   }
@@ -16,6 +20,15 @@ export default class Results extends Component {
   }
 
   render() {
+    const {
+      currentRecipeConsumablesStore,
+      currentRecipeProductsStore
+    } = this.props;
+
+    const totalConsumablesPrice = currentRecipeConsumablesStore.reduce((acc, currentValue) => (acc + (currentValue.price * currentValue.count)), 0);
+    const totalProductsPrice = currentRecipeProductsStore.reduce((acc, currentValue) => (acc + (currentValue.price * currentValue.count)), 0);
+    const totalPrice = totalConsumablesPrice + totalProductsPrice;
+
     return (
       <View style={styles.container}>
         <Text style={{fontFamily: "Roboto", fontSize: 32, color: "#A79681", width: 344, textAlign: "left", marginBottom: 19}}> Результат </Text>
@@ -23,11 +36,11 @@ export default class Results extends Component {
           <Text style={{fontFamily: "Roboto", fontSize: 18, color: "#36271D", marginBottom: 10}}>Расходы:</Text>
           <View style={styles.ingredient}>
             <Text style={styles.ingredient_name}>На 1 кг веса торта</Text>
-            <Text style={styles.ingredient_price}>890 ₽</Text>
+            <Text style={styles.ingredient_price}>{totalProductsPrice} ₽</Text>
           </View>
           <View style={styles.ingredient} style={{marginBottom: 22}}>
             <Text style={styles.ingredient_name}>Расходные материалы</Text>
-            <Text style={styles.ingredient_price}>310 ₽</Text>
+            <Text style={styles.ingredient_price}>{totalConsumablesPrice} ₽</Text>
           </View>
           <Text style={{fontFamily: "Roboto", fontSize: 18, color: "#36271D", marginBottom: 10}}>Итог:</Text>
           <View style={styles.ingredient}>
@@ -36,7 +49,7 @@ export default class Results extends Component {
           </View>
           <View style={styles.ingredient}>
             <Text style={styles.ingredient_name}>Цена изготовления</Text>
-            <Text style={styles.ingredient_price}>2535 ₽</Text>
+            <Text style={styles.ingredient_price}>{totalPrice} ₽</Text>
           </View>
           <Text style={{fontFamily: "Roboto", fontSize: 14, color: "#A79681", marginTop: 32, marginBottom: 50}}>
             Цена изготовления без учета цены времени и прочих наценок, формирующих конечную цену для покупателя.
@@ -114,3 +127,18 @@ const styles = StyleSheet.create({
     color: "#36271D"
   }
 })
+
+function mapStateToProps(state) {
+  return {
+    currentRecipeProductsStore: state.currentRecipeProductsStore,
+    currentRecipeConsumablesStore: state.currentRecipeConsumablesStore
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+      appActions: bindActionCreators(appActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Results);
