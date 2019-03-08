@@ -10,15 +10,19 @@ import { bindActionCreators } from 'redux';
 import * as appActions from '../actions/index';
 
 class Product extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-
-    };
-  }
-
   deleteProduct = (item) => {
     this.props.appActions.removeProduct(item);
+    this.props.appActions.removeConsumables(item);
+  }
+
+  plus = (item) => {
+    this.props.appActions.plusConsumables(item["name"]);
+    this.props.appActions.plusProduct(item["name"]);
+  }
+
+  minus = (item) => {
+    this.props.appActions.minusConsumables(item["name"]);
+    this.props.appActions.minusProduct(item["name"]);
   }
 
   render() {
@@ -42,9 +46,13 @@ class Product extends Component {
               <Text style={{fontFamily: "Roboto", fontSize: 12, color: "#D8CCBE"}}>{info["type"]}</Text>
             </View>
             <View style={styles.count_inner}>
-              <Image source={minusIcon}/>
+              <TouchableHighlight onPress={() => {this.minus(info)}}>
+                <Image source={minusIcon}/>
+              </TouchableHighlight>
               <Text style={styles.count_inner_value}>{info["count"]}</Text>
-              <Image source={plusIcon}/>
+              <TouchableHighlight onPress={() => {this.plus(info)}}>
+                <Image source={plusIcon}/>
+              </TouchableHighlight>
             </View>
           </View>
           <View style={styles.total}>
@@ -52,7 +60,7 @@ class Product extends Component {
               <Text style={{fontFamily: "Roboto", fontSize: 14, color: "#FFF", marginRight: 14}}>Сумма</Text>
               <Text style={{fontFamily: "Roboto", fontSize: 12, color: "#BEB1A1"}}>₽</Text>
             </View>
-            <Text style={{marginTop: 10, marginLeft: 12, fontFamily: "Roboto", fontSize: 18, color: "#A79681"}}>17,20</Text>
+            <Text style={{marginTop: 10, marginLeft: 12, fontFamily: "Roboto", fontSize: 18, color: "#A79681"}}>{info["price"] * info["count"]}</Text>
           </View>
         </View>
       </View>

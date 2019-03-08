@@ -23,7 +23,7 @@ class Consumables extends Component {
   }
 
   render() {
-    this.consumables = this.props.ConsumablesStore.map(( item, index ) => {
+    this.consumables = this.props.currentRecipeConsumablesStore.map(( item, index ) => {
       return <Product key={index} info={item} />
     });
 
@@ -43,7 +43,7 @@ class Consumables extends Component {
             <Text style={styles.next_text}>Рассчитать</Text>
           </TouchableHighlight>
           <TouchableHighlight style={styles.add_ingredient}
-          onPress={() => {console.log('add')}}>
+          onPress={() => {this.props.navigation.navigate('ConsumablesList')}}>
             <Text style={styles.add_ingredient_text}>Добавить расходник</Text>
           </TouchableHighlight>
         </View>

@@ -6,6 +6,7 @@ import Products from './screens/Products';
 import Ingredients from './screens/Ingredients';
 import Consumables from './screens/Consumables';
 import Results from './screens/Results';
+import ConsumablesList from './screens/ConsumablesList';
 
 import configureStore from './store/configureStore';
 
@@ -30,6 +31,7 @@ const RootStack = createStackNavigator({
   Ingredients: Ingredients,
   Results: Results,
   Consumables: Consumables,
+  ConsumablesList: ConsumablesList
 })
 
 const AppStackNavigator = createAppContainer(RootStack);
